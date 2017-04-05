@@ -1,3 +1,9 @@
+/*
+		~~Notes~~
+move a lot of the updating to the transform class
+*/
+
+
 #include "Engine.h"
 #include "Camera.h"
 
@@ -13,12 +19,23 @@ Camera::~Camera()
 void Camera::start()
 {
 	worldView = mat4();
-	camRot = { 0.f,0.f,0.f };
+
+	transform = Transform
+	(
+		vec3(0, 0, 1),
+		vec3(0, 0, 0),
+		1,
+		1
+	);
+
+
 	/*should be moved to transform class*/
-	position = { 0,0,1 };
-	velocity = { 0,0,0 };
-	rotation = mat3(glm::yawPitchRoll(camRot.y, camRot.x, camRot.z));
-	speed = 0.02f;
+	//eulerRoation = { 0.f,0.f,0.f };
+	//position = { 0,0,1 };
+	//velocity = { 0,0,0 };
+	//rotation = mat3(glm::yawPitchRoll(eulerRoation.y, eulerRoation.x, eulerRoation.z));
+	//speed = 0.02f;
+
 	sensitivity = .005f;
 	glfwSetCursorPos(Engine::window.pointer, Engine::window.halfWidth, Engine::window.halfHeight);
 	glfwSetInputMode(Engine::window.pointer, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -34,11 +51,12 @@ void Camera::update()
 	turn();
 	move();
 
-	position += velocity;
+	transform.drag(5.f);
+	transform.update();
 
-	vec3 eye = position;
-	vec3 center = eye + rotation * vec3(0, 0, -1);
-	vec3 up = rotation * vec3(0, 1, 0);
+	vec3 eye = transform.position;
+	vec3 center = eye + transform.rotation * vec3(0, 0, -1);
+	vec3 up = transform.rotation * vec3(0, 1, 0);
 
 	mat4 lookatMat = glm::lookAt(eye, center, up);
 
@@ -59,20 +77,14 @@ void Camera::update()
 
 void Camera::move()
 {
-	mat3 R = (mat3)glm::yawPitchRoll(camRot.y, camRot.x, camRot.z);
-
-	velocity = { 0,0,0 };
-	
 	if (glfwGetKey(Engine::window.pointer, GLFW_KEY_LEFT) == GLFW_PRESS)
-		velocity += R * vec3(-1, 0, 0);
+		transform.push(transform.rotation * vec3(-1, 0, 0));
 	if (glfwGetKey(Engine::window.pointer, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		velocity += R * vec3(1, 0, 0);
+		transform.push(transform.rotation * vec3(1, 0, 0));
 	if (glfwGetKey(Engine::window.pointer, GLFW_KEY_UP) == GLFW_PRESS)
-		velocity += R * vec3(0, 0, -1);
+		transform.push(transform.rotation * vec3(0, 0, -1));
 	if (glfwGetKey(Engine::window.pointer, GLFW_KEY_DOWN) == GLFW_PRESS)
-		velocity += R * vec3(0, 0, 1);
-	if (velocity != vec3())
-		velocity = glm::normalize(velocity) * speed;
+		transform.push(transform.rotation * vec3(0, 0, 1));
 }
 
 void Camera::turn()
@@ -80,9 +92,15 @@ void Camera::turn()
 	double x;
 	double y;
 	glfwGetCursorPos(Engine::window.pointer, &x, &y);
-	camRot.y += (float)(sensitivity * (Engine::window.width / 2 - x));
-	camRot.x += (float)(sensitivity * (Engine::window.height / 2 - y));
-	camRot.x = glm::clamp(camRot.x, -1* glm::half_pi<float>(), glm::half_pi<float>());
+
+	transform.turn
+	(
+		(float)(sensitivity * (Engine::window.height / 2 - y)),
+		(float)(sensitivity * (Engine::window.width / 2 - x)),
+		0
+	);
+
+	transform.eulerRoation.x = glm::clamp(transform.eulerRoation.x, -1* glm::half_pi<float>(), glm::half_pi<float>());
 	glfwSetCursorPos(Engine::window.pointer, Engine::window.halfWidth, Engine::window.halfHeight);
-	rotation = mat3(glm::yawPitchRoll(camRot.y, camRot.x, camRot.z));
+	transform.rotation = mat3(glm::yawPitchRoll(transform.eulerRoation.y, transform.eulerRoation.x, transform.eulerRoation.z));
 }
