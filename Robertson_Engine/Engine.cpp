@@ -95,7 +95,7 @@ void Engine::stop()
 void Engine::update()
 {
 	//get inputs
-	glfwPollEvents();
+	
 	timer.update();
 	system("cls");
 

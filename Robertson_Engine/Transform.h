@@ -30,5 +30,7 @@ public:
 	void push(vec3 force);
 	void drag(float frictionCoefficient);
 	void turn(float x, float y, float z);
+
+	float magnitude(vec3 vector);
 };
 

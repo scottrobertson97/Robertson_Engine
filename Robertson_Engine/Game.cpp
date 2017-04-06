@@ -2,13 +2,14 @@
 
 int main()
 {
-	if (!Engine::start(800, 600))
+	if (!Engine::start(1200, 720))
 		return -1;
 
 	while (!glfwWindowShouldClose(Engine::window.pointer))
 	{
 		Engine::update();
 		Engine::draw();
+		glfwPollEvents();
 	}
 
 	Engine::stop();
