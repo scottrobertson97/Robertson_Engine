@@ -14,6 +14,7 @@ using std::vector;
 #include "Camera.h"
 #include "Window.h"
 #include "Timer.h"
+#include "Model.h"
 
 class Engine
 {
@@ -26,6 +27,7 @@ public:
 	static Camera camera;
 
 	static bool start(int width, int height);
+	static bool bufferModels();
 
 	static void stop();
 	static void update();

@@ -13,13 +13,6 @@ private:
 
 	Transform transform;
 
-	/*should be movied into a transform class*/
-	//vec3 eulerRoation;
-	//vec3 position;
-	//vec3 velocity;
-	//mat3 rotation;
-	//float speed;
-
 	float sensitivity;
 public:
 	Camera();
