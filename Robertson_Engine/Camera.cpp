@@ -1,9 +1,3 @@
-/*
-		~~Notes~~
-move a lot of the updating to the transform class
-*/
-
-
 #include "Engine.h"
 #include "Camera.h"
 
@@ -22,15 +16,27 @@ void Camera::start()
 
 	transform = Transform
 	(
-		vec3(0, 0, 1),
-		vec3(0, 0, 0),
-		1,
-		1
+		vec3(0, 0, 1),	//position
+		vec3(0, 0, 0),	//rotation
+		1,				//max speed
+		1				//mass
 	);
 
 	sensitivity = .005f;
+
+	//set cursor to the middle of the screen
 	glfwSetCursorPos(Engine::window.pointer, Engine::window.halfWidth, Engine::window.halfHeight);
+	//hide the cursor
 	glfwSetInputMode(Engine::window.pointer, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+	/*perspective*/
+	zoom = 1.f;
+	fovy = glm::pi<float>() * 0.4f / zoom;
+	aspect = (float)Engine::window.width / (float)Engine::window.height;
+	zNear = 0.1f;
+	zFar = 1000.f;
+
+	perspective = glm::perspective(fovy, aspect, zNear, zFar);
 }
 
 void Camera::upload()
@@ -45,21 +51,12 @@ void Camera::update()
 
 	transform.update();
 	
+	/*calculating the lookat matrix*/
 	vec3 eye = transform.position;
 	vec3 center = eye + transform.rotation * vec3(0, 0, -1);
 	vec3 up = transform.rotation * vec3(0, 1, 0);
 
 	mat4 lookatMat = glm::lookAt(eye, center, up);
-
-	/*perspective*/
-	float zoom = 1.f;
-
-	float fovy = glm::pi<float>() * 0.4f / zoom;
-	float aspect = (float)Engine::window.width / (float)Engine::window.height;
-	float zNear = 0.1f;
-	float zFar = 1000.f;
-
-	mat4 perspective = glm::perspective(fovy, aspect, zNear, zFar);
 
 	worldView = perspective * lookatMat;
 
@@ -70,6 +67,7 @@ void Camera::move()
 {	
 	vec3 move;
 
+	/*based on arrow key pressed add a vector in the direction of key press*/
 	if (glfwGetKey(Engine::window.pointer, GLFW_KEY_LEFT) == GLFW_PRESS)
 		move += vec3(-1, 0, 0);
 
@@ -82,9 +80,10 @@ void Camera::move()
 	if (glfwGetKey(Engine::window.pointer, GLFW_KEY_DOWN) == GLFW_PRESS)
 		move += vec3(0, 0, 1);
 
+	//if move is not 0, the move the camera
 	if(move != vec3())
 		transform.push(transform.rotation * glm::normalize(move) * 5.f);
-
+	//else no key was pressed, so apply friction
 	else
 		transform.drag(50);
 }
@@ -99,9 +98,9 @@ void Camera::turn()
 	//turn the camera
 	transform.turn
 	(
-		(float)(sensitivity * (Engine::window.height / 2 - y)),
-		(float)(sensitivity * (Engine::window.width / 2 - x)),
-		0
+		(float)(sensitivity * (Engine::window.height / 2 - y)),	//rotation on x axis
+		(float)(sensitivity * (Engine::window.width / 2 - x)),	//rotation on y axiz
+		0														//rotation on z axis
 	);
 
 	//clamp x-axis rotation

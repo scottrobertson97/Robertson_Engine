@@ -85,8 +85,6 @@ void Transform::update()
 
 	//get the rotation matrix
 	rotation = mat3(glm::yawPitchRoll(eulerRoation.y, eulerRoation.x, eulerRoation.z));
-
-	std::cout << magnitude(velocity);
 }
 
 void Transform::push(vec3 force)
@@ -96,7 +94,6 @@ void Transform::push(vec3 force)
 
 void Transform::drag(float frictionCoefficient)
 {
-
 	if (velocity != vec3()) 
 	{
 		acceleration += glm::normalize(velocity) * -1.f * frictionCoefficient;

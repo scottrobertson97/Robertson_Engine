@@ -14,6 +14,13 @@ private:
 	Transform transform;
 
 	float sensitivity;
+
+	float zoom;
+	float fovy;
+	float aspect;
+	float zNear;
+	float zFar;
+	mat4 perspective;
 public:
 	Camera();
 	~Camera();

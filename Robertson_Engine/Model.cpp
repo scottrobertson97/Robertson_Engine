@@ -19,12 +19,18 @@ bool Model::buffer(std::string objFile)
 	std::vector<vec3> normals;
 	std::vector<VertInd> vertInds;
 
+	//try to open the onj file
 	std::ifstream obj(objFile);
 	if (!obj.is_open())
+	{
+		printf("could not loat the model file");
 		return false;
+	}
 
+	//string to hold each line of the file
 	std::string line;
 
+	//iterate through the file getting each line
 	while (std::getline(obj, line))
 	{
 		std::stringstream ss(line);
@@ -33,24 +39,28 @@ bool Model::buffer(std::string objFile)
 
 		ss >> label;
 
+		//load the position data
 		if (label == "v")
 		{
 			vec3 loc;
 			ss >> loc.x >> loc.y >> loc.z;
 			locations.push_back(loc);
 		}
+		//load the uv data
 		else if (label == "vt")
 		{
 			vec2 uv;
 			ss >> uv.x >> uv.y;
 			uvs.push_back(uv);
 		}
+		//load the norm data
 		else if (label == "vn")
 		{
 			vec3 norm;
 			ss >> norm.x >> norm.y >> norm.z;
 			normals.push_back(norm);
 		}
+		//load the vertex data
 		else if (label == "f")
 		{
 			unsigned int i;
@@ -70,12 +80,14 @@ bool Model::buffer(std::string objFile)
 		}
 	}
 
+	//close the file
 	obj.close();
 
 	vertCount = vertInds.size();
 
 	std::vector <Vertex> vertBufData(vertCount);
 
+	//fill the vertBufData with data
 	for (int i = 0; i < vertCount; i++)
 	{
 		vertBufData[i] = 

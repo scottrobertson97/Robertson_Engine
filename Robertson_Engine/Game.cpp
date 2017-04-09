@@ -2,31 +2,26 @@
 
 int main()
 {
-	if (!Engine::start(1200, 720))
+	//try to start the endine with a window size
+	if (!Engine::start(800, 600))
 		return -1;
-
-	//Shader shader;
-
-	///*shader*/
-	//if (!shader.load())
-	//{
-	//	glfwTerminate();
-	//}
-	//
-	//shader.use();
 
 	/*Game Loop*/
 	while (!glfwWindowShouldClose(Engine::window.pointer))
 	{
-		Engine::update();
-
-		Engine::draw();
+		//get key events
 		glfwPollEvents();
+
+		//break the loop if the user presses ESC
+		if (glfwGetKey(Engine::window.pointer, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			break;
+
+		//update then draw the engine
+		Engine::update();
+		Engine::draw();		
 	}
 
-	//shader.unload();
 	Engine::stop();
-
 	glfwTerminate();
 	return 0;
 }
