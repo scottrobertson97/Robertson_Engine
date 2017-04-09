@@ -15,12 +15,13 @@ struct Vertex
 };
 struct VertInd
 {
-	unsigned int locInd, unInd, normInd;
+	unsigned int locInd, uvInd, normInd;
 };
 class Model
 {
 private:
 	GLuint vertArr;
+	GLuint vertBuf;
 	unsigned int vertCount;
 public:
 	Model();

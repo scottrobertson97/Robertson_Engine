@@ -5,6 +5,7 @@ Window Engine::window;
 Camera Engine::camera;
 
 Model model;
+Shader shader;
 
 Engine::Engine()
 {
@@ -23,12 +24,22 @@ bool Engine::start(int width, int height)
 	//change color of the window
 	glClearColor(0.392f, 0.584f, 0.929f, 1.0f);
 
+	bufferModels();
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	if (!shader.load())
+	{
+		glfwTerminate();
+	}
+	
+	shader.use();
+
 	return true;
 }
 
 bool Engine::bufferModels()
 {
-	model.buffer();
+	model.buffer("models/teapot.obj");
 	return false;
 }
 
