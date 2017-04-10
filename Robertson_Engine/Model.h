@@ -24,6 +24,8 @@ private:
 	GLuint vertBuf;
 	unsigned int vertCount;
 public:
+	float scale;
+
 	Model();
 	~Model();
 

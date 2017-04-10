@@ -6,6 +6,8 @@ Model::Model()
 	vertArr = 0;
 	vertBuf = 0;
 	vertCount = 0;
+
+	scale = 1.f;
 }
 
 Model::~Model()
@@ -92,7 +94,7 @@ bool Model::buffer(std::string objFile)
 	{
 		vertBufData[i] = 
 		{	
-			locations[vertInds[i].locInd],
+			locations[vertInds[i].locInd] * scale,
 			uvs[vertInds[i].uvInd],
 			normals[vertInds[i].normInd]
 		};
@@ -108,10 +110,10 @@ bool Model::buffer(std::string objFile)
 	
 	//storing the data in the buffer
 	glBufferData(
-		GL_ARRAY_BUFFER,				//where to copy
+		GL_ARRAY_BUFFER,			//where to copy
 		sizeof(Vertex) * vertCount,	//# of bytes to copy
-		&vertBufData[0],				//where to copy from
-		GL_STATIC_DRAW);				//"hint" to opengl
+		&vertBufData[0],			//where to copy from
+		GL_STATIC_DRAW);			//"hint" to opengl
 
 	//describe the buffer layout
 	//enable the attribute
@@ -119,12 +121,12 @@ bool Model::buffer(std::string objFile)
 
 	//set up the attribute
 	glVertexAttribPointer(
-		0,					//attribute index
-		3,					//number of componets(x,y,z)
-		GL_FLOAT,			//type of data
-		GL_FALSE,			//should we nomalize data?
-		sizeof(Vertex),		//stride(bytes per vertex)
-		0);					//offset to this attribute
+		0,				//attribute index
+		3,				//number of componets(x,y,z)
+		GL_FLOAT,		//type of data
+		GL_FALSE,		//should we nomalize data?
+		sizeof(Vertex),	//stride(bytes per vertex)
+		0);				//offset to this attribute
 
 	//unbind when finished editing
 	glBindVertexArray(0);

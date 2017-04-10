@@ -32,7 +32,11 @@ bool Engine::start(int width, int height)
 	bufferModels();
 
 	//render wireframe
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	//Backface culling
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 
 	//try to load the shader
 	if (!shader.load())

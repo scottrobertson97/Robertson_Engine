@@ -16,7 +16,7 @@ void Camera::start()
 
 	transform = Transform
 	(
-		vec3(0, 0, 1),	//position
+		vec3(0, 0, 3),	//position
 		vec3(0, 0, 0),	//rotation
 		1,				//max speed
 		1				//mass
