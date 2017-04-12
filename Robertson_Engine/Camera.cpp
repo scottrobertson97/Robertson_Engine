@@ -42,6 +42,7 @@ void Camera::start()
 void Camera::upload()
 {
 	glUniformMatrix4fv(4, 1 , GL_FALSE, &worldView[0][0]);
+
 }
 
 void Camera::update()

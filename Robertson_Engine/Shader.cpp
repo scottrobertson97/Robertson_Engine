@@ -9,8 +9,6 @@ Shader::~Shader()
 {
 }
 
-int uniform_WindowSize;
-
 bool Shader::load()
 {
 	//try to compile the shaders
@@ -25,10 +23,7 @@ bool Shader::load()
 	glAttachShader(program, vprogram);
 	glAttachShader(program, fprogram);
 	glLinkProgram(program);
-
-	//for the shaders to get the window size
-	uniform_WindowSize = glGetUniformLocation(program, "WindowSize");
-
+	
 	/*check if linked*/
 	GLint result;
 	glGetProgramiv(program, GL_LINK_STATUS, &result);
@@ -110,8 +105,14 @@ bool Shader::compile(GLenum shaderType, GLuint &shaderProgram)
 void Shader::use()
 {
 	glUseProgram(program);
-	//get window size, so it can be used in the shader
-	glUniform2f(uniform_WindowSize, 800, 600);
+
+	//light loaction
+	int lightLoc = glGetUniformLocation(program, "lightLoc");
+	glUniform3f(lightLoc, 0, 20, 0);
+
+	//light loaction
+	int cameraLoc = glGetUniformLocation(program, "cameraLoc");
+	glUniform3f(cameraLoc, 0, 20, 0);
 }
 
 void Shader::unload()

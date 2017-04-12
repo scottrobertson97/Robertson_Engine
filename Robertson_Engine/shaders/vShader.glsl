@@ -1,7 +1,11 @@
-#version 430
-layout (location = 4) uniform mat4 worldView;
-layout (location = 0) in vec3 worldLoc;
-void main()
-{
-	gl_Position = worldView * vec4(worldLoc, 1);
+
+
+
+varying vec3 N;
+varying vec3 v;
+void main(void)  
+{     
+   v = vec3(gl_ModelViewMatrix * gl_Vertex);       
+   N = normalize(gl_NormalMatrix * gl_Normal);
+   gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;  
 }
