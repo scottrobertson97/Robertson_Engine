@@ -1,3 +1,4 @@
+#include "Engine.h"
 #include "Shader.h"
 #include <vector>
 
@@ -108,11 +109,7 @@ void Shader::use()
 
 	//light loaction
 	int lightLoc = glGetUniformLocation(program, "lightLoc");
-	glUniform3f(lightLoc, 0, 20, 0);
-
-	//light loaction
-	int cameraLoc = glGetUniformLocation(program, "cameraLoc");
-	glUniform3f(cameraLoc, 0, 20, 0);
+	glUniform3f(lightLoc, 0, 0, 10);
 }
 
 void Shader::unload()
@@ -124,4 +121,9 @@ void Shader::unload()
 	program = 0;
 	vprogram = 0;
 	fprogram = 0;
+}
+
+GLuint Shader::getProgram()
+{
+	return program;
 }

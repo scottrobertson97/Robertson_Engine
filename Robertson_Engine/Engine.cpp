@@ -69,6 +69,10 @@ void Engine::update()
 	system("cls");
 
 	camera.update();
+
+	//light loaction
+	int cameraLoc = glGetUniformLocation(shader.getProgram(), "cameraLoc");
+	glUniform3f(cameraLoc,camera.transform.position.x, camera.transform.position.y, camera.transform.position.z);
 }
 
 void Engine::draw()

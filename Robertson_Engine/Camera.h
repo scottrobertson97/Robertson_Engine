@@ -11,7 +11,7 @@ class Camera
 private:
 	mat4 worldView;
 
-	Transform transform;
+	
 
 	float sensitivity;
 
@@ -22,6 +22,8 @@ private:
 	float zFar;
 	mat4 perspective;
 public:
+	Transform transform;
+
 	Camera();
 	~Camera();
 	void start();

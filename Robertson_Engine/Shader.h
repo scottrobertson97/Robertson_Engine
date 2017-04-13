@@ -19,5 +19,6 @@ public:
 	bool compile(GLenum shaderType, GLuint &shaderProgram);
 	void use();
 	void unload();
+	GLuint getProgram();
 };
 
