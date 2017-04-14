@@ -109,7 +109,7 @@ void Shader::use()
 
 	//light loaction
 	int lightLoc = glGetUniformLocation(program, "lightLoc");
-	glUniform3f(lightLoc, 0, 0, 10);
+	glUniform3f(lightLoc, 0, 0, 2);
 }
 
 void Shader::unload()

@@ -5,10 +5,10 @@ uniform vec3 cameraLoc;
 in vec3 fragLoc;
 in vec3 fragNormal;
 
-const vec3 ambientVal = 		vec3(0);
-const vec3 diffuseVal = 		vec3(1);
-const vec3 specularVal = 		vec3(0.5);
-const vec3 specularAlphaVal = 	vec3(1);
+const vec3 ambientVal = 		vec3(.05);
+const vec3 diffuseVal = 		vec3(.5);
+const vec3 specularVal = 		vec3(.2);
+const vec3 specularAlphaVal = 	vec3(.5);
 
 void main()
 {

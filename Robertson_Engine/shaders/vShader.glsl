@@ -9,7 +9,6 @@ out vec3 fragNormal;
 void main()
 {
 	gl_Position = worldView * vec4(worldLoc, 1);
-	
-	fragLoc = worldLoc;       
+	fragLoc = worldLoc;
 	fragNormal = normal;
 }
