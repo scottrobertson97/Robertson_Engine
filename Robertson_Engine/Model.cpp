@@ -128,6 +128,17 @@ bool Model::buffer(std::string objFile)
 		sizeof(Vertex),	//stride(bytes per vertex)
 		0);				//offset to this attribute
 
+	
+	glEnableVertexAttribArray(1);	//attribute index =1
+									//set up the attribute
+	glVertexAttribPointer(
+		1,				//attribute index
+		3,				//number of componets(x,y,z)
+		GL_FLOAT,		//type of data
+		GL_FALSE,		//should we nomalize data?
+		sizeof(Vertex),	//stride(bytes per vertex)
+		(void *)(sizeof(vec3) + sizeof(vec2)));				//offset to this attribute
+
 	//unbind when finished editing
 	glBindVertexArray(0);
 
