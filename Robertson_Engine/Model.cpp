@@ -115,29 +115,47 @@ bool Model::buffer(std::string objFile)
 		&vertBufData[0],			//where to copy from
 		GL_STATIC_DRAW);			//"hint" to opengl
 
+	/*Setting the position attribute*/
 	//describe the buffer layout
 	//enable the attribute
 	glEnableVertexAttribArray(0);	//attribute index =0
 
 	//set up the attribute
-	glVertexAttribPointer(
+	glVertexAttribPointer
+	(
 		0,				//attribute index
 		3,				//number of componets(x,y,z)
 		GL_FLOAT,		//type of data
 		GL_FALSE,		//should we nomalize data?
 		sizeof(Vertex),	//stride(bytes per vertex)
-		0);				//offset to this attribute
+		0				//offset to this attribute
+	);				
 
-	
+	/*setting the uv attribute*/
 	glEnableVertexAttribArray(1);	//attribute index =1
 									//set up the attribute
-	glVertexAttribPointer(
-		1,				//attribute index
-		3,				//number of componets(x,y,z)
-		GL_FLOAT,		//type of data
-		GL_FALSE,		//should we nomalize data?
-		sizeof(Vertex),	//stride(bytes per vertex)
-		(void *)(sizeof(vec3) + sizeof(vec2)));				//offset to this attribute
+	glVertexAttribPointer
+	(
+		1,						//attribute index
+		2,						//number of componets(x,y)
+		GL_FLOAT,				//type of data
+		GL_FALSE,				//should we nomalize data?
+		sizeof(Vertex),			//stride(bytes per vertex)
+		(void *)(sizeof(vec3))	//offset to this attribute
+	);				
+	
+	/*setting the normal attribute*/
+	glEnableVertexAttribArray(2);	//attribute index =2
+									//set up the attribute
+	glVertexAttribPointer
+	(
+		2,										//attribute index
+		3,										//number of componets(x,y,z)
+		GL_FLOAT,								//type of data
+		GL_FALSE,								//should we nomalize data?
+		sizeof(Vertex),							//stride(bytes per vertex)
+		(void *)(sizeof(vec3) + sizeof(vec2))	//offset to this attribute
+	);				
 
 	//unbind when finished editing
 	glBindVertexArray(0);

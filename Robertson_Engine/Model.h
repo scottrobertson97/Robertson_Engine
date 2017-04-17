@@ -1,4 +1,6 @@
 #pragma once
+#include "Texture.h"
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -25,6 +27,7 @@ private:
 	unsigned int vertCount;
 public:
 	float scale;
+	Texture texture;
 
 	Model();
 	~Model();

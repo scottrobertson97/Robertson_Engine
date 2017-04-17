@@ -107,13 +107,19 @@ void Shader::use()
 {
 	glUseProgram(program);
 
-	//light loaction
-	int lightLoc = glGetUniformLocation(program, "lightLocs");
-	vec3 lightLocs[1] = {
-		vec3(10, 0, 0)
-	};
 
-	glUniform3fv(lightLoc, 1, &lightLocs[0].x);
+	////light loaction
+	//int lightLoc = glGetUniformLocation(program, "lightLocs");
+	//vec3 lightLocs[1] = {
+	//	vec3(10, 0, 0)
+	//};
+	//
+	//glUniform3fv(lightLoc, 1, &lightLocs[0].x);
+
+	//get locayion of the light unform variable
+	int lightLoc = glGetUniformLocation(program, "lightLoc");
+	//upload the light
+	glUniform3f(lightLoc, -5, 5, 10);
 }
 
 void Shader::unload()
