@@ -54,6 +54,7 @@ bool Engine::bufferModels()
 {
 	//buffer the model
 	model.buffer("models/sphere.obj");
+	model.texture.load();
 	return false;
 }
 
@@ -70,7 +71,7 @@ void Engine::update()
 
 	camera.update();
 
-	//light loaction
+	//camera loaction
 	int cameraLoc = glGetUniformLocation(shader.getProgram(), "cameraLoc");
 	glUniform3f(cameraLoc,camera.transform.position.x, camera.transform.position.y, camera.transform.position.z);
 }
@@ -81,6 +82,7 @@ void Engine::draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//render the model
+	model.texture.render();
 	model.render();
 
 	//swap the front and back buffers

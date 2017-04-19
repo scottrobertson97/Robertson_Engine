@@ -90,7 +90,7 @@ bool Model::buffer(std::string objFile)
 	std::vector <Vertex> vertBufData(vertCount);
 
 	//fill the vertBufData with data
-	for (int i = 0; i < vertCount; i++)
+	for (unsigned int i = 0; i < vertCount; i++)
 	{
 		vertBufData[i] = 
 		{	

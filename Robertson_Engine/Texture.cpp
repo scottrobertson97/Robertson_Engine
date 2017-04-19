@@ -1,7 +1,5 @@
+#include "Engine.h"
 #include "Texture.h"
-
-
-
 Texture::Texture()
 {
 }
@@ -13,7 +11,8 @@ Texture::~Texture()
 
 void Texture::render()
 {
-	
+	glBindTexture(GL_TEXTURE_2D, texID);
+	glActiveTexture(texID);
 }
 
 void Texture::unload()
@@ -54,6 +53,27 @@ void Texture::load()
 		GL_BGRA,          // Data format
 		GL_UNSIGNED_BYTE, // Type of texture data
 		textureData);     // The image data to use for this texture
+
+	GLenum minificationFilter = GL_LINEAR;
+	GLenum magnificationFilter = GL_LINEAR;
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minificationFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magnificationFilter);
+
+	if (minificationFilter == GL_LINEAR_MIPMAP_LINEAR ||
+		minificationFilter == GL_LINEAR_MIPMAP_NEAREST ||
+		minificationFilter == GL_NEAREST_MIPMAP_LINEAR ||
+		minificationFilter == GL_NEAREST_MIPMAP_NEAREST)
+	{
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+
+	FreeImage_Unload(bitmap32);
+
+	if (bitsPerPixel != 32)
+	{
+		FreeImage_Unload(bitmap);
+	}
 
 	//https://r3dux.org/2014/10/how-to-load-an-opengl-texture-using-the-freeimage-library-or-freeimageplus-technically/
 }
