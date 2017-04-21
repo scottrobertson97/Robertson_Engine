@@ -5,11 +5,13 @@ class Texture
 {
 private:
 	const char* filename = "textures/TestTexture.png";
-	GLuint texID;
+	
 	GLubyte* textureData;
 	int imageWidth;
 	int imageHeight;
 public:
+	GLuint texID;
+
 	Texture();
 	~Texture();
 

@@ -61,6 +61,8 @@ bool Engine::bufferModels()
 void Engine::stop()
 {
 	shader.unload();
+	glDeleteTextures(1, &model.texture.texID);
+	glDeleteBuffers(1, &model.vertBuf);
 }
 
 void Engine::update()

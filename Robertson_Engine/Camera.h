@@ -11,10 +11,7 @@ class Camera
 private:
 	mat4 worldView;
 
-	
-
 	float sensitivity;
-
 	float zoom;
 	float fovy;
 	float aspect;

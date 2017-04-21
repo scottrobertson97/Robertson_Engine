@@ -1,6 +1,8 @@
 #include "Engine.h"
 #include "Window.h"
 
+//https://r3dux.org/2014/10/how-to-load-an-opengl-texture-using-the-freeimage-library-or-freeimageplus-technically/
+
 Window::Window()
 {
 }

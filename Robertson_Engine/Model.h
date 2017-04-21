@@ -24,9 +24,9 @@ class Model
 {
 private:
 	GLuint vertArr;
-	GLuint vertBuf;
 	unsigned int vertCount;
 public:
+	GLuint vertBuf;
 	float scale;
 	Texture texture;
 

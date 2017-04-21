@@ -18,7 +18,7 @@ int main()
 
 		//update then draw the engine
 		Engine::update();
-		Engine::draw();		
+		Engine::draw();
 	}
 
 	Engine::stop();
