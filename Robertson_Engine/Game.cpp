@@ -7,14 +7,10 @@ int main()
 		return -1;
 
 	/*Game Loop*/
-	while (!glfwWindowShouldClose(Engine::window.pointer))
+	while (!glfwWindowShouldClose(Engine::window.pointer) && glfwGetKey(Engine::window.pointer, GLFW_KEY_ESCAPE) != GLFW_PRESS)
 	{
 		//get key events
 		glfwPollEvents();
-
-		//break the loop if the user presses ESC
-		if (glfwGetKey(Engine::window.pointer, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-			break;
 
 		//update then draw the engine
 		Engine::update();

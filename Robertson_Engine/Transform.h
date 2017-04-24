@@ -19,6 +19,7 @@ public:
 	
 	float maxSpeed;
 	float mass;
+	float scale;
 
 	Transform();
 	Transform(vec3 position);
