@@ -1,12 +1,15 @@
 #pragma once
 #include "Transform.h"
+#include "GameObject.h"
+#include "RigidBody.h"
 #include <glm\gtx\transform.hpp>
 
 using glm::mat4;
 using glm::mat3;
 using glm::vec3;
 
-class Camera
+class Camera :
+	public GameObject
 {
 private:
 	mat4 worldView;
@@ -19,7 +22,7 @@ private:
 	float zFar;
 	mat4 perspective;
 public:
-	Transform transform;
+	RigidBody rigidBody;
 
 	Camera();
 	~Camera();

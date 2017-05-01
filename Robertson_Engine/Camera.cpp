@@ -13,15 +13,8 @@ Camera::~Camera()
 void Camera::start()
 {
 	worldView = mat4();
-
-	transform = Transform
-	(
-		vec3(0, 0, 3),	//position
-		vec3(0, 0, 0),	//rotation
-		1,				//max speed
-		1				//mass
-	);
-
+	rigidBody = RigidBody(transform);
+	transform.position = vec3(0, 5, 0);
 	sensitivity = .005f;
 
 	//set cursor to the middle of the screen
@@ -49,12 +42,12 @@ void Camera::update()
 	turn();
 	move();
 
-	transform.update();
+	rigidBody.update();
 	
 	/*calculating the lookat matrix*/
 	vec3 eye = transform.position;
-	vec3 center = eye + transform.rotation * vec3(0, 0, -1);
-	vec3 up = transform.rotation * vec3(0, 1, 0);
+	vec3 center = eye + vec3(transform.rotation * glm::vec4(0, 0, -1, 0));
+	vec3 up = vec3(transform.rotation * glm::vec4(0, 1, 0,0));
 
 	mat4 lookatMat = glm::lookAt(eye, center, up);
 
@@ -81,11 +74,15 @@ void Camera::move()
 		move += vec3(0, 0, 1);
 
 	//if move is not 0, the move the camera
-	if(move != vec3())
-		transform.push(transform.rotation * glm::normalize(move) * 5.f);
+	if (move != vec3())
+	{
+		glm::vec4 direction = glm::normalize(glm::vec4(move, 0));
+		float power = 5.0f;
+		rigidBody.push(vec3(transform.rotation * direction * power));
+	}
 	//else no key was pressed, so apply friction
 	else
-		transform.drag(50);
+		rigidBody.drag(50);
 }
 
 void Camera::turn()
