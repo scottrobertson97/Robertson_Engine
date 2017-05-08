@@ -112,3 +112,23 @@ float RigidBody::magnitude(vec3 vector)
 	float sum = vector.x * vector.x + vector.y * vector.y + vector.z * vector.z;
 	return glm::sqrt(sum);
 }
+
+bool RigidBody::isColliding(Sphere s1, Sphere s2)
+{
+	return false;
+}
+
+bool RigidBody::isColliding(AABB b, Sphere s)
+{
+	return false;
+}
+
+bool RigidBody::isColliding(Sphere s, AABB b)
+{
+	return isColliding(b, s);
+}
+
+bool RigidBody::isColliding(AABB b1, AABB b2)
+{
+	return false;
+}
