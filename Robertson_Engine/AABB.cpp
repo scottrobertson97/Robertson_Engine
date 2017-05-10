@@ -4,6 +4,7 @@
 
 AABB::AABB()
 {
+	size = glm::vec2();
 }
 
 

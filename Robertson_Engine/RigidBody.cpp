@@ -1,66 +1,15 @@
 #include "Engine.h"
 #include "RigidBody.h"
 
-//void RigidBody::initialize(vec3 position, vec3 eulerRoation, float maxSpeed, float mass)
-//{
-//	this->position = position;
-//	velocity = vec3();
-//	acceleration = vec3();
-//
-//	this->eulerRoation = eulerRoation;
-//	rotation = mat3(glm::yawPitchRoll(eulerRoation.y, eulerRoation.x, eulerRoation.z));
-//
-//	this->maxSpeed = maxSpeed;
-//	this->mass = mass;
-//}
-//
-//RigidBody::RigidBody()
-//{
-//	initialize
-//	(
-//		vec3(),
-//		vec3(),
-//		1,
-//		1
-//	);
-//}
-//
-//RigidBody::RigidBody(vec3 position)
-//{
-//	initialize
-//	(
-//		position,
-//		vec3(),
-//		1,
-//		1
-//	);
-//}
-//
-//RigidBody::RigidBody(vec3 position, float maxSpeed, float mass)
-//{
-//	initialize
-//	(
-//		position,
-//		vec3(),
-//		maxSpeed,
-//		mass
-//	);
-//}
-//
-//RigidBody::RigidBody(vec3 position, vec3 eulerRoation, float maxSpeed, float mass)
-//{
-//	initialize
-//	(
-//		position,
-//		eulerRoation,
-//		maxSpeed,
-//		mass
-//	);
-//}
-
-RigidBody::RigidBody(Transform transform)
+RigidBody::RigidBody()
 {
-	this->transform = transform;
+	velocity = vec3();
+	acceleration = vec3();
+	maxspeed = 1;
+	mass = 1;
+	scale = 1;
+	collisionbound = CollisionBound();
+	collisionbound.position = transform.position;
 }
 
 RigidBody::~RigidBody()
@@ -70,13 +19,13 @@ RigidBody::~RigidBody()
 void RigidBody::update()
 {
 	//clamp the acceleration
-	acceleration = glm::clamp(acceleration, -1 * maxSpeed, maxSpeed);
+	acceleration = glm::clamp(acceleration, -1 * maxspeed, maxspeed);
 
 	//add acceleration * dt to velocity
 	velocity += acceleration * Engine::timer.dt;
 
 	//clamp max velocity
-	velocity = glm::clamp(velocity, -1 * maxSpeed, maxSpeed);
+	velocity = glm::clamp(velocity, -1 * maxspeed, maxspeed);
 
 	//if the object is moving too slow, then set velocity to 0
 	if (magnitude(velocity) < 0.01)
@@ -84,6 +33,9 @@ void RigidBody::update()
 
 	//add velocity * dt to the position
 	transform.position += velocity * Engine::timer.dt;
+
+	//update the collision position
+	collisionbound.position = transform.position;
 
 	//zero out the velocity
 	acceleration = vec3();
@@ -113,22 +65,12 @@ float RigidBody::magnitude(vec3 vector)
 	return glm::sqrt(sum);
 }
 
-bool RigidBody::isColliding(Sphere s1, Sphere s2)
+bool RigidBody::isColliding(Sphere s)
 {
 	return false;
 }
 
-bool RigidBody::isColliding(AABB b, Sphere s)
-{
-	return false;
-}
-
-bool RigidBody::isColliding(Sphere s, AABB b)
-{
-	return isColliding(b, s);
-}
-
-bool RigidBody::isColliding(AABB b1, AABB b2)
+bool RigidBody::isColliding(AABB b)
 {
 	return false;
 }

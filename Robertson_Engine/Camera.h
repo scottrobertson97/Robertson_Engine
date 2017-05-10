@@ -1,7 +1,5 @@
 #pragma once
-#include "Transform.h"
 #include "GameObject.h"
-#include "RigidBody.h"
 #include <glm\gtx\transform.hpp>
 
 using glm::mat4;
@@ -22,7 +20,6 @@ private:
 	float zFar;
 	mat4 perspective;
 public:
-	RigidBody rigidBody;
 
 	Camera();
 	~Camera();

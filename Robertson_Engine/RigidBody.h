@@ -11,21 +11,20 @@ using glm::vec3;
 class RigidBody
 {
 private:
-	//void initialize(vec3 position, vec3 eulerRoation, float maxSpeed, float mass);
-	Transform transform;
+	
 public:
-	vec3 eulerRoation;
-	mat3 rotation;
-
-	vec3 position;
 	vec3 velocity;
 	vec3 acceleration;
 
-	float maxSpeed;
+	float maxspeed;
 	float mass;
 	float scale;
 
-	RigidBody(Transform transform);
+	Transform transform;
+
+	CollisionBound collisionbound;
+
+	RigidBody();
 	~RigidBody();
 
 	//Transform();
@@ -41,9 +40,7 @@ public:
 
 	float magnitude(vec3 vector);
 
-	bool isColliding(Sphere s1, Sphere s2);
-	bool isColliding(AABB b, Sphere s);
-	bool isColliding(Sphere s, AABB b);
-	bool isColliding(AABB b1, AABB b2);
+	bool isColliding(Sphere s);
+	bool isColliding(AABB b);
 };
 

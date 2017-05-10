@@ -5,7 +5,6 @@ class AABB :
 {
 public:
 	glm::vec2 size;
-	glm::vec3 position;
 	AABB();
 	~AABB();
 };

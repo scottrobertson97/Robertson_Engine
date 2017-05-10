@@ -4,6 +4,7 @@
 
 Sphere::Sphere()
 {
+	raduis = 0;
 }
 
 

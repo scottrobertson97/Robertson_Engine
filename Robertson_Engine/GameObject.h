@@ -1,15 +1,19 @@
 #pragma once
-#include "Transform.h"
+#include "RigidBody.h"
 #include "Model.h";
 
 class GameObject
 {
 public:
+	bool isKinetic;
+
 	Transform transform;
 	Model model;
-	RigidBody ridgidBody;
+	RigidBody rigidBody;
 
 	GameObject();
 	~GameObject();
+
+	virtual void update();
 };
 

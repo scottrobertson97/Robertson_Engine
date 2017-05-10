@@ -4,6 +4,7 @@
 
 CollisionBound::CollisionBound()
 {
+	position = glm::vec3();
 }
 
 

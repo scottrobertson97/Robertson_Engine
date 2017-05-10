@@ -3,6 +3,8 @@
 class CollisionBound
 {
 public:
+	glm::vec3 position;
+
 	CollisionBound();
 	virtual ~CollisionBound();
 };

@@ -5,7 +5,6 @@ class Sphere :
 {
 public:
 	float raduis;
-	glm::vec3 position;
 	Sphere();
 	~Sphere();
 };

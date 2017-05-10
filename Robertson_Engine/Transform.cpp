@@ -6,6 +6,7 @@ Transform::Transform()
 	position = vec3(0);
 	rotation = glm::yawPitchRoll(0, 0, 0);;
 	scale = mat4();
+	
 }
 
 Transform::Transform(float x, float y, float z)

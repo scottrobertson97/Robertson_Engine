@@ -13,7 +13,6 @@ Camera::~Camera()
 void Camera::start()
 {
 	worldView = mat4();
-	rigidBody = RigidBody(transform);
 	transform.position = vec3(0, 5, 0);
 	sensitivity = .005f;
 
@@ -93,7 +92,7 @@ void Camera::turn()
 	glfwGetCursorPos(Engine::window.pointer, &x, &y);
 
 	//turn the camera
-	transform.turn
+	rigidBody.turn
 	(
 		(float)(sensitivity * (Engine::window.height / 2 - y)),	//rotation on x axis
 		(float)(sensitivity * (Engine::window.width / 2 - x)),	//rotation on y axiz
@@ -101,7 +100,7 @@ void Camera::turn()
 	);
 
 	//clamp x-axis rotation
-	transform.eulerRoation.x = glm::clamp(transform.eulerRoation.x, -1* glm::half_pi<float>(), glm::half_pi<float>());
+	//transform.eulerRoation.x = glm::clamp(transform.eulerRoation.x, -1* glm::half_pi<float>(), glm::half_pi<float>());
 
 	//move cursor to the middle of the screen
 	glfwSetCursorPos(Engine::window.pointer, Engine::window.halfWidth, Engine::window.halfHeight);
