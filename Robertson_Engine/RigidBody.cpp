@@ -1,15 +1,20 @@
 #include "Engine.h"
 #include "RigidBody.h"
 
-RigidBody::RigidBody()
+RigidBody::RigidBody(Transform * transform)
 {
 	velocity = vec3();
 	acceleration = vec3();
 	maxspeed = 1;
 	mass = 1;
 	scale = 1;
+	this->transform = transform;
 	collisionbound = CollisionBound();
-	collisionbound.position = transform.position;
+	collisionbound.position = transform->position;
+}
+
+RigidBody::RigidBody()
+{
 }
 
 RigidBody::~RigidBody()
@@ -33,10 +38,10 @@ void RigidBody::update()
 		velocity = vec3();
 
 	//add velocity * dt to the position
-	transform.position += velocity * Engine::timer.dt;
+	transform->position += velocity * Engine::timer.dt;
 
 	//update the collision position
-	collisionbound.position = transform.position;
+	collisionbound.position = transform->position;
 
 	//zero out the velocity
 	acceleration = vec3();
@@ -55,9 +60,9 @@ void RigidBody::drag(float frictionCoefficient)
 	}
 }
 
-void RigidBody::turn(float x, float y, float z)
+void RigidBody::turn(float yaw, float pitch, float roll)
 {
-	transform.rotation *= glm::yawPitchRoll(x, y, z);
+	transform->rotation *= glm::yawPitchRoll(yaw, pitch, roll);
 }
 
 float RigidBody::magnitude(vec3 vector)

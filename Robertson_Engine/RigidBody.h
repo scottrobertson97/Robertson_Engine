@@ -20,10 +20,11 @@ public:
 	float mass;
 	float scale;
 
-	Transform transform;
+	Transform * transform;
 
 	CollisionBound collisionbound;
 
+	RigidBody(Transform * transform);
 	RigidBody();
 	~RigidBody();
 

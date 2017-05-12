@@ -16,7 +16,7 @@ void Camera::start()
 	isKinetic = true;
 
 	worldView = mat4();
-	transform.position = vec3(0, 5, 0);
+	transform.position = vec3(0, 0, 5);
 	sensitivity = .005f;
 
 	//set cursor to the middle of the screen
@@ -41,12 +41,16 @@ void Camera::upload()
 
 void Camera::update()
 {
-	cout << transform.position.x << " | " << transform.position.y << " | " << transform.position.z;
+	cout << transform.position.x << " | " << transform.position.y << " | " << transform.position.z << std::endl;
+	cout << transform.rotation[0][0] << " | " << transform.rotation[0][1] << " | " << transform.rotation[0][2] << " | " << transform.rotation[0][3] << std::endl;
+	cout << transform.rotation[1][0] << " | " << transform.rotation[1][1] << " | " << transform.rotation[1][2] << " | " << transform.rotation[1][3] << std::endl;
+	cout << transform.rotation[2][0] << " | " << transform.rotation[2][1] << " | " << transform.rotation[2][2] << " | " << transform.rotation[2][3] << std::endl;
+	cout << transform.rotation[3][0] << " | " << transform.rotation[3][1] << " | " << transform.rotation[3][2] << " | " << transform.rotation[3][3] << std::endl;
 	turn();
 	move();
 	
 	rigidBody.update();
-	transform = rigidBody.transform;
+	//transform = rigidBody.transform;
 	
 	/*calculating the lookat matrix*/
 	vec3 eye = transform.position;
@@ -80,7 +84,6 @@ void Camera::move()
 	//if move is not 0, the move the camera
 	if (move != vec3())
 	{
-		printf("\n move");
 		glm::vec4 direction = glm::normalize(glm::vec4(move, 0));
 		float power = 5.0f;
 		rigidBody.push(vec3(transform.rotation * direction * power));
@@ -100,9 +103,9 @@ void Camera::turn()
 	//turn the camera
 	rigidBody.turn
 	(
-		(float)(sensitivity * (Engine::window.height / 2 - y)),	//rotation on x axis
-		(float)(sensitivity * (Engine::window.width / 2 - x)),	//rotation on y axiz
-		0														//rotation on z axis
+		(float)(sensitivity * (Engine::window.width / 2 - x)),	//yaw
+		(float)(sensitivity * (Engine::window.height / 2 - y)),	//pitch
+		0														//roll
 	);
 
 	//clamp x-axis rotation

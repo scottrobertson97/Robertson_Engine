@@ -7,8 +7,7 @@ GameObject::GameObject()
 	isKinetic = false;
 	transform = Transform();
 	model = Model();
-	rigidBody = RigidBody();
-	rigidBody.transform = transform;
+	rigidBody = RigidBody(&transform);
 }
 
 
