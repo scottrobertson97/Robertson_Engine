@@ -16,4 +16,5 @@ void main()
 	fragNormal = normal;
 	
 	gl_Position = worldView * vec4(worldLoc, 1);
+	//gl_Position =  vec4(worldLoc, 1);
 }

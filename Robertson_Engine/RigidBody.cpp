@@ -18,6 +18,7 @@ RigidBody::~RigidBody()
 
 void RigidBody::update()
 {
+
 	//clamp the acceleration
 	acceleration = glm::clamp(acceleration, -1 * maxspeed, maxspeed);
 

@@ -16,6 +16,7 @@ Model::~Model()
 
 bool Model::buffer(std::string objFile)
 {
+	printf("buffer model");
 	std::vector<vec3> locations;
 	std::vector<vec2> uvs;
 	std::vector<vec3> normals;

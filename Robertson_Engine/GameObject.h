@@ -12,7 +12,7 @@ public:
 	RigidBody rigidBody;
 
 	GameObject();
-	~GameObject();
+	virtual ~GameObject();
 
 	virtual void update();
 };

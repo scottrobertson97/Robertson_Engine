@@ -25,7 +25,7 @@ public:
 	~Camera();
 	void start();
 	void upload();
-	void update();
+	void update() override;
 	void move();
 	void turn();
 };

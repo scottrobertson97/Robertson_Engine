@@ -1,7 +1,8 @@
 #include "Engine.h"
 #include "Camera.h"
-
-Camera::Camera()
+#include <iostream>
+using std::cout;
+Camera::Camera() : GameObject()
 {
 }
 
@@ -12,6 +13,8 @@ Camera::~Camera()
 
 void Camera::start()
 {
+	isKinetic = true;
+
 	worldView = mat4();
 	transform.position = vec3(0, 5, 0);
 	sensitivity = .005f;
@@ -38,15 +41,17 @@ void Camera::upload()
 
 void Camera::update()
 {
+	cout << transform.position.x << " | " << transform.position.y << " | " << transform.position.z;
 	turn();
 	move();
-
+	
 	rigidBody.update();
+	transform = rigidBody.transform;
 	
 	/*calculating the lookat matrix*/
 	vec3 eye = transform.position;
 	vec3 center = eye + vec3(transform.rotation * glm::vec4(0, 0, -1, 0));
-	vec3 up = vec3(transform.rotation * glm::vec4(0, 1, 0,0));
+	vec3 up = vec3(transform.rotation * glm::vec4(0, 1, 0, 0));
 
 	mat4 lookatMat = glm::lookAt(eye, center, up);
 
@@ -75,6 +80,7 @@ void Camera::move()
 	//if move is not 0, the move the camera
 	if (move != vec3())
 	{
+		printf("\n move");
 		glm::vec4 direction = glm::normalize(glm::vec4(move, 0));
 		float power = 5.0f;
 		rigidBody.push(vec3(transform.rotation * direction * power));
