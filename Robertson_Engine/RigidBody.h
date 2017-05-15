@@ -24,15 +24,9 @@ public:
 
 	CollisionBound collisionbound;
 
-	RigidBody(Transform * transform);
+	RigidBody(Transform * transform, BoundType type);
 	RigidBody();
 	~RigidBody();
-
-	//Transform();
-	//Transform(vec3 position);
-	//Transform(vec3 position, float maxSpeed, float mass);
-	//Transform(vec3 position, vec3 eulerRoation, float maxSpeed, float mass);
-	//~Transform();
 
 	void update();
 	void push(vec3 force);

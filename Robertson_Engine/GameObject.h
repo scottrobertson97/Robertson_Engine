@@ -1,6 +1,6 @@
 #pragma once
 #include "RigidBody.h"
-#include "Model.h";
+#include "Model.h"
 
 class GameObject
 {
@@ -17,5 +17,7 @@ public:
 	virtual void update();
 	virtual void upload();
 	void render();
+
+	bool isColliding(const GameObject &other);
 };
 

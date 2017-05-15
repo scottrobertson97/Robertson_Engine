@@ -41,6 +41,12 @@ bool Engine::start(int width, int height)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
+	//depthcheck
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+
+	
+
 	//try to load the shader
 	if (!shader.load())
 	{
@@ -49,6 +55,12 @@ bool Engine::start(int width, int height)
 	
 	//use the shader
 	shader.use();
+
+
+	ball.isKinetic = true;
+	box.isKinetic = true;
+
+
 
 	return true;
 }
@@ -76,7 +88,13 @@ void Engine::stop()
 
 void Engine::update()
 {
-	ball.transform.position.x += 0.01f;
+	ball.rigidBody.push(glm::vec3(0.05, 0, 0));
+
+	ball.update();
+	box.update();
+
+	ball.isColliding(box);
+
 	timer.update();
 
 	system("cls");
@@ -92,6 +110,7 @@ void Engine::draw()
 {
 	//clear the canvas
 	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
 
 	//render the model
 	ball.render();

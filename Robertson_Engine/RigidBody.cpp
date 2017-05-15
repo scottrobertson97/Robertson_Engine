@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "RigidBody.h"
 
-RigidBody::RigidBody(Transform * transform)
+RigidBody::RigidBody(Transform * transform, BoundType type)
 {
 	velocity = vec3();
 	acceleration = vec3();
@@ -9,8 +9,10 @@ RigidBody::RigidBody(Transform * transform)
 	mass = 1;
 	scale = 1;
 	this->transform = transform;
-	collisionbound = CollisionBound();
-	collisionbound.position = transform->position;
+	if(type == aabb)
+		collisionbound = AABB();
+	if (type == sphere)
+		collisionbound = Sphere();
 }
 
 RigidBody::RigidBody()
@@ -39,9 +41,6 @@ void RigidBody::update()
 
 	//add velocity * dt to the position
 	transform->position += velocity * Engine::timer.dt;
-
-	//update the collision position
-	collisionbound.position = transform->position;
 
 	//zero out the velocity
 	acceleration = vec3();

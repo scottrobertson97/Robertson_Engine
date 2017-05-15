@@ -4,7 +4,9 @@ class AABB :
 	public CollisionBound
 {
 public:
-	glm::vec2 size;
+	glm::vec3 min;
+	glm::vec3 max;
+	AABB(glm::vec3 min, glm::vec3 max);
 	AABB();
 	~AABB();
 };

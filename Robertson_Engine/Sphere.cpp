@@ -2,9 +2,16 @@
 
 
 
+Sphere::Sphere(float radius)
+{
+	this->radius = radius;
+	type = sphere;
+}
+
 Sphere::Sphere()
 {
-	raduis = 0;
+	radius = 0.5f;
+	type = sphere;
 }
 
 

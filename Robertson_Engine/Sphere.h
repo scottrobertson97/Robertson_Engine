@@ -4,7 +4,8 @@ class Sphere :
 	public CollisionBound
 {
 public:
-	float raduis;
+	float radius;
+	Sphere(float radius);
 	Sphere();
 	~Sphere();
 };
