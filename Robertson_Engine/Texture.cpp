@@ -9,7 +9,7 @@ Texture::~Texture()
 {
 }
 
-void Texture::render()
+void Texture::bind()
 {
 	glBindTexture(GL_TEXTURE_2D, texID);
 	//glActiveTexture(texID);

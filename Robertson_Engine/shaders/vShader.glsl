@@ -2,7 +2,7 @@
 layout (location = 0) in vec3 worldLoc;
 layout (location = 1) in vec2 modelUV;
 layout (location = 2) in vec3 normal;
-
+layout (location = 3) uniform mat4 transform;
 layout (location = 4) uniform mat4 worldView;
 
 out vec3 fragLoc;
@@ -15,6 +15,7 @@ void main()
 	fragUV = modelUV;
 	fragNormal = normal;
 	
-	gl_Position = worldView * vec4(worldLoc, 1);
+	//gl_Position = worldView * vec4(worldLoc, 1);
+	gl_Position = worldView * transform * vec4(worldLoc, 1);
 	//gl_Position =  vec4(worldLoc, 1);
 }

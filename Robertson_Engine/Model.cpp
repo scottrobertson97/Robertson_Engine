@@ -164,9 +164,13 @@ bool Model::buffer(std::string objFile)
 	return false;
 }
 
-void Model::render()
+void Model::bind()
 {
 	glBindVertexArray(vertArr);
+}
+
+void Model::draw()
+{
 	glDrawArrays(GL_TRIANGLES, 0, vertCount);
 	glBindVertexArray(0);
 }

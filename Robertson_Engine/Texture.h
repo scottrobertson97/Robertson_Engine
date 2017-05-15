@@ -15,7 +15,7 @@ public:
 	Texture();
 	~Texture();
 
-	void render();
+	void bind();
 	void unload();
 	void load();
 };

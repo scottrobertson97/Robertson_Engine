@@ -34,6 +34,8 @@ public:
 	~Model();
 
 	bool buffer(std::string objFile);
-	void render();
+
+	void bind();
+	void draw();
 };
 

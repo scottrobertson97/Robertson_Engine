@@ -15,5 +15,7 @@ public:
 	virtual ~GameObject();
 
 	virtual void update();
+	virtual void upload();
+	void render();
 };
 

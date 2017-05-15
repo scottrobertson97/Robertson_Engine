@@ -7,7 +7,9 @@ Camera Engine::camera;
 
 //model and shader being use for this test of the engine
 //Model model;
-GameObject go;
+GameObject ball;
+GameObject box;
+
 Shader shader;
 
 Engine::Engine()
@@ -54,20 +56,27 @@ bool Engine::start(int width, int height)
 bool Engine::bufferModels()
 {
 	//buffer the model
-	go.model.buffer("models/sphere.obj");
-	go.model.texture.load();
+	ball.model.buffer("models/sphere.obj");
+	ball.model.texture.load();
+
+	box.model.buffer("models/box.obj");
+	box.model.texture.load();
 	return false;
 }
 
 void Engine::stop()
 {
 	shader.unload();
-	glDeleteTextures(1, &go.model.texture.texID);
-	glDeleteBuffers(1, &go.model.vertBuf);
+	glDeleteTextures(1, &ball.model.texture.texID);
+	glDeleteBuffers(1, &ball.model.vertBuf);
+
+	glDeleteTextures(1, &box.model.texture.texID);
+	glDeleteBuffers(1, &box.model.vertBuf);
 }
 
 void Engine::update()
 {
+	ball.transform.position.x += 0.01f;
 	timer.update();
 
 	system("cls");
@@ -85,8 +94,8 @@ void Engine::draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//render the model
-	go.model.texture.render();
-	go.model.render();
+	ball.render();
+	box.render();
 
 	//swap the front and back buffers
 	glfwSwapBuffers(window.pointer);
