@@ -1,8 +1,7 @@
 #pragma once
 #include <glm\gtx\transform.hpp>
 #include "Transform.h"
-#include "AABB.h"
-#include "Sphere.h"
+#include "CollisionBound.h"
 
 using glm::mat4;
 using glm::mat3;
@@ -34,8 +33,5 @@ public:
 	void turn(float x, float y, float z);
 
 	float magnitude(vec3 vector);
-
-	bool isColliding(Sphere s);
-	bool isColliding(AABB b);
 };
 

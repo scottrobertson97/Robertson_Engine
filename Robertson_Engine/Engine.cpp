@@ -59,8 +59,8 @@ bool Engine::start(int width, int height)
 
 	ball.isKinetic = true;
 	box.isKinetic = true;
-
-
+	ball.rigidBody.collisionbound.type = sphere;
+	box.rigidBody.collisionbound.type = aabb;
 
 	return true;
 }
@@ -88,7 +88,8 @@ void Engine::stop()
 
 void Engine::update()
 {
-	ball.rigidBody.push(glm::vec3(0.05, 0, 0));
+	ball.rigidBody.push(glm::vec3(0.05, 0.05, 0));
+	//ball.transform.position = glm::vec3(-1.7, -1.7, 0);
 
 	ball.update();
 	box.update();

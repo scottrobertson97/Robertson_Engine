@@ -18,6 +18,6 @@ public:
 	virtual void upload();
 	void render();
 
-	bool isColliding(const GameObject &other);
+	virtual bool isColliding(const GameObject &other);
 };
 

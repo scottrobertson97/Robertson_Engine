@@ -41,16 +41,21 @@ void Camera::upload()
 
 void Camera::update()
 {
-	cout << transform.position.x << " | " << transform.position.y << " | " << transform.position.z << std::endl;
-	cout << transform.rotation[0][0] << " | " << transform.rotation[0][1] << " | " << transform.rotation[0][2] << " | " << transform.rotation[0][3] << std::endl;
-	cout << transform.rotation[1][0] << " | " << transform.rotation[1][1] << " | " << transform.rotation[1][2] << " | " << transform.rotation[1][3] << std::endl;
-	cout << transform.rotation[2][0] << " | " << transform.rotation[2][1] << " | " << transform.rotation[2][2] << " | " << transform.rotation[2][3] << std::endl;
-	cout << transform.rotation[3][0] << " | " << transform.rotation[3][1] << " | " << transform.rotation[3][2] << " | " << transform.rotation[3][3] << std::endl;
+	//print the position of the camera
+	//cout << transform.position.x << " | " << transform.position.y << " | " << transform.position.z << std::endl;
+
+	//print the rotation matrix of the camera
+	//cout << transform.rotation[0][0] << " | " << transform.rotation[0][1] << " | " << transform.rotation[0][2] << " | " << transform.rotation[0][3] << std::endl;
+	//cout << transform.rotation[1][0] << " | " << transform.rotation[1][1] << " | " << transform.rotation[1][2] << " | " << transform.rotation[1][3] << std::endl;
+	//cout << transform.rotation[2][0] << " | " << transform.rotation[2][1] << " | " << transform.rotation[2][2] << " | " << transform.rotation[2][3] << std::endl;
+	//cout << transform.rotation[3][0] << " | " << transform.rotation[3][1] << " | " << transform.rotation[3][2] << " | " << transform.rotation[3][3] << std::endl;
+	
+	//take in user input and turn & move
 	turn();
 	move();
 	
+	//update the rigidbody
 	rigidBody.update();
-	//transform = rigidBody.transform;
 	
 	/*calculating the lookat matrix*/
 	vec3 eye = transform.position;
@@ -101,15 +106,20 @@ void Camera::turn()
 	glfwGetCursorPos(Engine::window.pointer, &x, &y);
 
 	//turn the camera
-	rigidBody.turn
-	(
-		(float)(sensitivity * (Engine::window.width / 2 - x)),	//yaw
-		(float)(sensitivity * (Engine::window.height / 2 - y)),	//pitch
-		0														//roll
-	);
+	//rigidBody.turn
+	//(
+	//	(float)(sensitivity * (Engine::window.width / 2 - x)),	//yaw
+	//	(float)(sensitivity * (Engine::window.height / 2 - y)),	//pitch
+	//	0														//roll
+	//);
+
+	eularRotation.x += (float)(sensitivity * (Engine::window.height / 2 - y));
+	eularRotation.y += (float)(sensitivity * (Engine::window.width / 2 - x));
 
 	//clamp x-axis rotation
-	//transform.eulerRoation.x = glm::clamp(transform.eulerRoation.x, -1* glm::half_pi<float>(), glm::half_pi<float>());
+	eularRotation.x = glm::clamp(eularRotation.x, -1* glm::half_pi<float>(), glm::half_pi<float>());
+
+	transform.rotation = glm::yawPitchRoll(eularRotation.y, eularRotation.x, eularRotation.z);
 
 	//move cursor to the middle of the screen
 	glfwSetCursorPos(Engine::window.pointer, Engine::window.halfWidth, Engine::window.halfHeight);

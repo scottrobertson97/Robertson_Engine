@@ -9,10 +9,7 @@ RigidBody::RigidBody(Transform * transform, BoundType type)
 	mass = 1;
 	scale = 1;
 	this->transform = transform;
-	if(type == aabb)
-		collisionbound = AABB();
-	if (type == sphere)
-		collisionbound = Sphere();
+	collisionbound = CollisionBound(type);
 }
 
 RigidBody::RigidBody()
@@ -68,14 +65,4 @@ float RigidBody::magnitude(vec3 vector)
 {
 	float sum = vector.x * vector.x + vector.y * vector.y + vector.z * vector.z;
 	return glm::sqrt(sum);
-}
-
-bool RigidBody::isColliding(Sphere s)
-{
-	return false;
-}
-
-bool RigidBody::isColliding(AABB b)
-{
-	return false;
 }

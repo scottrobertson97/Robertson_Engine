@@ -10,6 +10,8 @@ class Camera :
 	public GameObject
 {
 private:
+	vec3 eularRotation;
+
 	mat4 worldView;
 
 	float sensitivity;
